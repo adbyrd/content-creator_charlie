@@ -1,5 +1,31 @@
 # Content Creator v.2
 
+## Application  
+
+```json
+{
+  "profile": {
+    "companyName": "Cuddle Clones",
+    "companyEmail": "support@cuddleclones.com",
+    "zipCode": "59353",
+    "websiteUrl": "https://cuddleclones.com",
+    "primaryCategory": "Professional Service",
+    "primarySubCategory": "Custom Manufacturer",
+    "companyDescription": "Custom plush toys handcrafted to look exactly like a customer's real pet.",
+    "customerType": "B2C",
+    "preferredPlatform": "Instagram",
+    "lastUpdated": "2026-04-01T10:42:00Z"
+  }
+}
+
+```
+
+https://www.adbyrd.com/cc
+https://www.adbyrd.com/cc/member-check
+https://www.adbyrd.com/profile-settings
+
+
+
 ## Application Directory   
 ```bash   
 └── /backend   

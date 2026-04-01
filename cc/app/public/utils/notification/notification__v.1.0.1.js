@@ -1,7 +1,7 @@
 /**
  * Utility: Notifications & User Feedback
  * Path: /public/utils/notifications.js
- * Version: [cc-v.1.0.0]
+ * Version: [cc-v.1.0.1]
  */
 
 export const MSG_GENERIC_ERROR = "Something went wrong. Please try again or contact support.";
@@ -12,7 +12,7 @@ export function showToaster(message = MSG_UPDATE_SUCCESS, type = 'success') {
     const $toasterText = $w('#ccToasterText');
 
     if (!$toaster || !$toasterText) {
-        console.warn(`[cc-v.1.0.0] Toaster elements missing from page. Check masterPage.js.`);
+        console.warn(`[cc-v7.9.0] Toaster elements missing from page. Check masterPage.js.`);
         return;
     }
 
@@ -26,16 +26,21 @@ export function showToaster(message = MSG_UPDATE_SUCCESS, type = 'success') {
         $toasterText.style.color = "#2E7D32";
     }
 
-    $toaster.expand();
-    console.log(`[cc-v.1.0.0] User Notification: [${type}] ${message}`);
+    if (typeof $toaster.expand === 'function') {
+        $toaster.expand();
+    }
 
     setTimeout(() => {
-        $toaster.collapse();
+        if ($toaster && typeof $toaster.collapse === 'function') {
+            $toaster.collapse();
+        } else {
+            console.warn(`[cc-v7.9.0] Element #ccGlobalToaster does not support .collapse()`);
+        }
     }, 4000);
 }
 
 export function showError(message = MSG_GENERIC_ERROR, fieldSelector = null) {
-    console.error(`[cc-v.1.0.0] Error Displayed: ${message}`);
+    console.error(`[cc-v.1.0.1] Error Displayed: ${message}`);
 
     if (!fieldSelector) {
         showToaster(message, 'error');
@@ -52,6 +57,7 @@ export function showError(message = MSG_GENERIC_ERROR, fieldSelector = null) {
 }
 
 export function debugNotifications() {
-    console.log('[cc-v.1.0.0] Debug: Testing Toaster...');
+    console.log('[cc-v.1.0.1] Debug: Testing Toaster...');
     showToaster("Debug: System notification test.");
 }
+

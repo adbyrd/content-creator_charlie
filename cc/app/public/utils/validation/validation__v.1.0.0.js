@@ -1,7 +1,7 @@
 /**
  * Utility: Validation & UI Helpers
  * Path: /public/utils/validation.js
- * Version: [cc-v2.0.0]
+ * Version: [cc-v.1.0.0]
  */
 
 export function validateEmail(email) {
@@ -37,7 +37,7 @@ export function safeDisable(selector, disabled = true) {
     if ($el && typeof $el.disable === 'function') {
         disabled ? $el.disable() : $el.enable();
     } else {
-        console.warn(`[cc-v2.0.0] safeDisable: Element ${selector} not found or incompatible.`);
+        console.warn(`[cc-v.1.0.0] safeDisable: Element ${selector} not found or incompatible.`);
     }
 }
 
