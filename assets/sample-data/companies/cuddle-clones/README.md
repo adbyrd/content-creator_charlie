@@ -51,3 +51,23 @@ color-002: "#6A1B9A",
 color-003: "#FFFFFF",
 color-004: "#E1BEE7",
 color-005: "#333333"
+
+
+
+```json
+{
+  "profile": {
+    "companyName": "Cuddle Clones",
+    "companyEmail": "support@cuddleclones.com",
+    "zipCode": "59353",
+    "websiteUrl": "https://cuddleclones.com",
+    "primaryCategory": "Professional Service",
+    "primarySubCategory": "Custom Manufacturer",
+    "companyDescription": "Custom plush toys handcrafted to look exactly like a customer's real pet.",
+    "customerType": "B2C",
+    "preferredPlatform": "Instagram",
+    "lastUpdated": "2026-04-01T10:42:00Z"
+  }
+}
+
+```
