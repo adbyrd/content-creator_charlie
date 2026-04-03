@@ -24,7 +24,7 @@ color-005: "#333333"
 **URL**  
 https://www.cuddleclones.com
 
-**EMAIL**  
+**Email**  
 support@cuddleclones.com
 
 **Phone**  

@@ -1,7 +1,5 @@
 # Rent-A-Chicken Co.
 
-**MASTER EMAIL**: syrious.sounds@gmail.com
-
 ## Company Details
 
 **Rent-A-Chicken Co.**
@@ -19,16 +17,15 @@ color-002: "#2E4A62",
 color-003: "#F7F7F7",
 color-004: "#8C4B2D",
 color-005: "#1E1E1E"
-
-
-Address
+  
+**Address**  
 46-30 Center Blvd, Long Island City, NY 11109
 
-URL
+**URL**  
 https://www.rentachicken.com
 
-EMAIL
+**Email**  
 support@rentachicken.com
 
-PHONE
-+1 (000) 555-1234
+**Phone**  
++1 (888) 555-1234
