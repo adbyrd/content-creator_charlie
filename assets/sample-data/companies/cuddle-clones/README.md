@@ -1,73 +1,31 @@
 # Cuddle Clones
 
-**MASTER EMAIL**: steve@sbcfirst.com
-
 ## Company Details
 
-**Cuddle Clones, LLC.**
+**Cuddle Clones, LLC.**  
 Custom plush toys that are handcrafted to look exactly like a customer's real pet.
 
-**Target Audience**
+**Target Audience**  
 Pet owners and memorial gift buyers who want a sentimental keepsake of their dog, cat, or other beloved animal.
 
-**Marketing Objective**
+**Marketing Objective**  
 Drive emotional engagement and conversions around personalized pet plush replicas.
 
-Company Color Palette
-color-001: "#F8BBD0"
-color-002: "#6A1B9A",
-color-003: "#FFFFFF",
-color-004: "#E1BEE7",
-color-005: "#333333"
+**Company Color Palette**  
+color-001: "#F8BBD0"  
+color-002: "#6A1B9A"  
+color-003: "#FFFFFF"  
+color-004: "#E1BEE7"  
+color-005: "#333333"  
 
-Address
+**Address**  
 202 2nd Ave NW, Wibaux, MT 59353
 
-URL
+**URL**  
 https://www.cuddleclones.com
 
-EMAIL
+**EMAIL**  
 support@cuddleclones.com
 
-+14067962338
-
-# Prompt
-Write the text-to-image prompt to generate a flat vector logo design for the company "Cuddle Clones, LLC." 
-Should be designed with a minimalist aesthetic that prioritizes two-dimensional simplicity and functional clarity over realistic detail. Rendered on a flat white background with no shadows, it is defined by the removal of complex visual effects like gradients, shadows, and textures in favor of solid colors and geometric forms.
-Should incorporate the company color palette and cater to the target audience 
-
-Cuddle Clones, LLC.
-Custom plush toys that are handcrafted to look exactly like a customer's real pet.
-
-Target Audience
-Pet owners and memorial gift buyers who want a sentimental keepsake of their dog, cat, or other beloved animal.
-
-Marketing Objective
-Drive emotional engagement and conversions around personalized pet plush replicas.
-
-Company Color Palette
-color-001: "#F8BBD0"
-color-002: "#6A1B9A",
-color-003: "#FFFFFF",
-color-004: "#E1BEE7",
-color-005: "#333333"
-
-
-
-```json
-{
-  "profile": {
-    "companyName": "Cuddle Clones",
-    "companyEmail": "support@cuddleclones.com",
-    "zipCode": "59353",
-    "websiteUrl": "https://cuddleclones.com",
-    "primaryCategory": "Professional Service",
-    "primarySubCategory": "Custom Manufacturer",
-    "companyDescription": "Custom plush toys handcrafted to look exactly like a customer's real pet.",
-    "customerType": "B2C",
-    "preferredPlatform": "Instagram",
-    "lastUpdated": "2026-04-01T10:42:00Z"
-  }
-}
-
-```
+**Phone**  
++1 (406) 796-2338
