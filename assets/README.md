@@ -27,16 +27,16 @@ Review the following company profile:
 ```json
 [
     {
-    "companyName": "Cuddle Clones",
-    "companyDescription": "Custom plush toys that are handcrafted to look exactly like a customer's real pet.",
-    "companyEmail": "support@cuddleclones.com",
-    "primaryCategory": "E-commerce",
-    "subCategory": "Personalized Gifts",
+    "companyName": "Rent-A-Chicken Co.",
+    "companyDescription": "Seasonal backyard chicken rentals that provide families with egg-laying hens, a coop, and feed for several months.",
+    "companyEmail": "support@rentachicken.com",
+    "primaryCategory": "General Services",
+    "subCategory": "Seasonal Services",
     "customerType": "b2c",
-    "logo": "wix:image://v1/44dd37_5d555f556da04d7c9019621e450ec688~mv2.jpeg/logo__cuddleclones.jpeg#originWidth=1024&originHeight=1024",
-    "companyZipCode": "59353",
-    "companyPhone": "+1 (406)796-2338",
-    "companyURL": "https://www.cuddleclones.com"
+    "logo": "wix:image://v1/44dd37_5d555f556da04d7c9019621e450ec688~mv2.jpeg/logo__rentachicken.jpeg#originWidth=1024&originHeight=1024",
+    "companyZipCode": "11109",
+    "companyPhone": "+1 (888) 555-1234",
+    "companyURL": "https://www.rentachicken.com"
   }
 ]
 ```
@@ -67,5 +67,5 @@ Project #2
 ]
 ```
 
-Provide a 100 character title for each project.
+Provide a 100 character title for each project that only uses alphanumeric characters (a-z, 0-9).
 Provide a 300 character description of each project.
