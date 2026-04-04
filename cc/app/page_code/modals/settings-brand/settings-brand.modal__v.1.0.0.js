@@ -1,7 +1,7 @@
 /**
  * Modal: Brand/Media Settings
  * Path: /page_code/modals/settings-brand.modal.js
- * @version [cc-v1.0.0]
+ * Version: [Brand/Media Settings: v1.0.0]
  */
 
 import wixWindow from 'wix-window';
@@ -54,11 +54,11 @@ async function handleFileUpload() {
         _uploadedFileUrl = uploadResult.url;
         $w('#imgLogoPreview').src = _uploadedFileUrl;
         
-        console.log('[cc-v1.0.0] Logo uploaded to temporary storage:', _uploadedFileUrl);
+        console.log('[Brand/Media Settings: v1.0.0] Logo uploaded to temporary storage:', _uploadedFileUrl);
         setTimeout(() => $w('#uploadProgressBar').hide(), 1000);
 
     } catch (err) {
-        console.error('[cc-v1.0.0] Upload failed:', err);
+        console.error('[Brand/Media Settings: v1.0.0] Upload failed:', err);
         $w('#uploadProgressBar').hide();
     }
 }
@@ -80,13 +80,13 @@ async function saveBrandSettings() {
         const response = await updateProfile(payload);
 
         if (response.ok) {
-            console.log('[cc-v1.0.0] Brand profile updated.');
+            console.log('[Brand/Media Settings: v1.0.0] Brand profile updated.');
             wixWindow.lightbox.close({ updated: true });
         } else {
             throw new Error(response.error?.message || "Update failed");
         }
     } catch (err) {
-        console.error('[cc-v1.0.0] Save error:', err);
+        console.error('[Brand/Media Settings: v1.0.0] Save error:', err);
         $w('#btnSave').label = "Save Logo";
         $w('#btnSave').enable();
         _isSaving = false;

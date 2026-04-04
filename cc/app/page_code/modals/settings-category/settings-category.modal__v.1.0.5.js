@@ -1,7 +1,7 @@
 /**
  * Modal: Category & Audience Settings
  * Path: /page_code/modals/settings-category.modal.js
- * Version: [cc-v1.0.5]
+ * Version: [Category & Audience Settings: v1.0.5]
  */
 
 import wixWindow from 'wix-window';
@@ -35,10 +35,10 @@ $w.onReady(async function () {
                 hydrateForm(_profileContext);
             }
         } else {
-            console.error("[cc-v1.0.5] Taxonomy failed to load.", res);
+            console.error("[Category & Audience Settings: v1.0.5] Taxonomy failed to load.", res);
         }
     } catch (err) {
-        console.error('[cc-v1.0.5] Modal Boot Error:', err);
+        console.error('[Category & Audience Settings: v1.0.5] Modal Boot Error:', err);
     }
 });
 
@@ -145,7 +145,7 @@ async function handleSave() {
             throw new Error("Update failed");
         }
     } catch (err) {
-        console.error(`[cc-v1.0.5] Save error:`, err);
+        console.error(`[Category & Audience Settings: v1.0.5] Save error:`, err);
         $w('#btnSave').label = "Save Settings";
         $w('#btnSave').enable();
         _isSaving = false;

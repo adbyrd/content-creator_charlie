@@ -1,7 +1,7 @@
 /**
  * Modal: Company Settings
  * Path: /modals/settings-company.modal.js
- * Version: [cc-v2.0.7]
+ * Version: [Company Settings: v2.0.7]
  */
 
 import wixWindow from 'wix-window';
@@ -15,7 +15,7 @@ const MSG_SAVING = "Saving...";
 let _isSaving = false;
 
 $w.onReady(function () {
-    console.log('[cc-v2.0.7] Company Settings Modal Initialized');
+    console.log('[Company Settings: v2.0.7] Company Settings Modal Initialized');
     bootModal();
 });
 
@@ -23,10 +23,10 @@ async function bootModal() {
     const context = wixWindow.lightbox.getContext();
     
     if (context && context.profile) {
-        console.log('[cc-v2.0.7] Context detected. Hydrating form fields...');
+        console.log('[Company Settings: v2.0.7] Context detected. Hydrating form fields...');
         hydrateForm(context.profile);
     } else {
-        console.warn('[cc-v2.0.7] No profile context provided to modal.');
+        console.warn('[Company Settings: v2.0.7] No profile context provided to modal.');
     }
     
     wireEventHandlers();
@@ -40,7 +40,7 @@ function hydrateForm(profile) {
     $w('#companyEmail').value = profile.companyEmail || "";
     $w('#companyPhone').value = profile.companyPhone || "";
 
-    console.log('[cc-v2.0.7] Hydration complete for:', profile.companyName);
+    console.log('[Company Settings: v2.0.7] Hydration complete for:', profile.companyName);
 }
 
 function wireEventHandlers() {
@@ -80,7 +80,7 @@ async function handleSave() {
         }
 
     } catch (err) {
-        console.error(`[cc-v2.0.7] Save failed:`, err);
+        console.error(`[Company Settings: v2.0.7] Save failed:`, err);
         showModalError(err.message, $w);
     } finally {
         toggleLoading(false);

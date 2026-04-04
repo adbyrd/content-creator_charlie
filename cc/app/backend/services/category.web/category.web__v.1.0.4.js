@@ -1,7 +1,7 @@
 /**
  * Backend Service: Category Management
  * Path: /backend/services/category.web.js
- * Version: [cc-v1.0.4]
+ * Version: [Category Management: v1.0.4]
  */
 
 import wixData from 'wix-data';

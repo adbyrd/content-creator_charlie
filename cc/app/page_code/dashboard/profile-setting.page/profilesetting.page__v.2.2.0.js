@@ -2,7 +2,7 @@
  * Page: Profile Settings
  * Path: /dashboard/profilesetting.page.js
  * Description: Main dashboard controller for managing the Persistent Identity Hub.
- * Version: [cc-v2.2.0]
+ * Version: [Profile Settings: v2.2.0]
  */
 
 import wixWindow from 'wix-window';
@@ -43,7 +43,7 @@ function renderProfile(profile) {
     $w('#displaySubCategory').text = profile.subCategory || "";
     $w('#displayCustomerType').text = profile.customerType || "";
     
-    console.log('[cc-v2.2.0] Profile UI rendered with latest data.');
+    console.log('[Profile Settings: v2.2.0] Profile UI rendered with latest data.');
 }
 
 function wireEventHandlers() {
@@ -57,7 +57,7 @@ async function openSettingsModal(modalId) {
         const result = await wixWindow.openLightbox(modalId, { profile: _profileData });
 
         if (result && result.updated) {
-            console.log(`[cc-v2.2.0] Update detected from ${modalId}. Refreshing UI.`);
+            console.log(`[Profile Settings: v2.2.0] Update detected from ${modalId}. Refreshing UI.`);
             
             _profileData = await loadProfileData();
 
@@ -66,6 +66,6 @@ async function openSettingsModal(modalId) {
             showToaster("Settings updated successfully.", "success");
         }
     } catch (err) {
-        console.error(`[cc-v2.2.0] Error handling modal close:`, err);
+        console.error(`[Profile Settings: v2.2.0] Error handling modal close:`, err);
     }
 }

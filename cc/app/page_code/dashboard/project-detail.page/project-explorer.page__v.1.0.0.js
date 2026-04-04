@@ -1,7 +1,7 @@
 /**
  * Page: Project Detail (Dynamic)
  * Path: /projects/{_id}
- * Version: [cc-v1.4.0]
+ * Version: [Project Detail: v1.4.0]
  */
 
 import wixLocation from 'wix-location';
@@ -12,12 +12,12 @@ $w.onReady(function () {
         const currentProject = $w('#dynamicDataset').getCurrentItem();
         
         if (!currentProject) {
-            console.error("[cc-v1.4.0] Project record not found.");
+            console.error("[Project Detail: v1.4.0] Project record not found.");
             wixLocation.to("/projects"); // Fallback if record is missing
             return;
         }
 
-        console.log(`[cc-v1.4.0] Viewing Project: ${currentProject.title}`);
+        console.log(`[Project Detail: v1.4.0] Viewing Project: ${currentProject.title}`);
         setupPageUI(currentProject);
     });
 });
