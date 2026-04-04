@@ -87,7 +87,7 @@ async function handleSave() {
         description: $w('#projectDescription').value,
         goal: $w('#projectGoal').value,
         offer: $w('#projectOffer').value,
-        audience: $w('#projectAudience').value,
+        target_audience: $w('#projectAudience').value,
         misconception: $w('#projectMisconception').value
     };
 
