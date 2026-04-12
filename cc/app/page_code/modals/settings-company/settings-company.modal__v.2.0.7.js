@@ -1,7 +1,7 @@
 /**
  * Modal: Company Settings
  * Path: /modals/settings-company.modal.js
- * Version: [Company Settings: v2.0.7]
+ * Version: [ COMPANY SETTINGS : v.2.0.7 ]
  */
 
 import wixWindow from 'wix-window';
@@ -9,13 +9,14 @@ import { updateProfile } from 'backend/services/profile.web';
 import { validateEmail, validateUrl } from 'public/utils/validation.js';
 import { showModalError } from 'public/utils/ui.js';
 
+const VERSION = '[ COMPANY SETTINGS : v.2.0.7 ]';
 const MSG_ERROR_GENERIC = "We couldn't update your settings. Please check the form and try again.";
 const MSG_SAVING = "Saving...";
 
 let _isSaving = false;
 
 $w.onReady(function () {
-    console.log('[Company Settings: v2.0.7] Company Settings Modal Initialized');
+    console.log(`${VERSION} Company Settings Modal Initialized`);
     bootModal();
 });
 
@@ -23,10 +24,10 @@ async function bootModal() {
     const context = wixWindow.lightbox.getContext();
     
     if (context && context.profile) {
-        console.log('[Company Settings: v2.0.7] Context detected. Hydrating form fields...');
+        console.log(`${VERSION} Context detected. Hydrating form fields...`);
         hydrateForm(context.profile);
     } else {
-        console.warn('[Company Settings: v2.0.7] No profile context provided to modal.');
+        console.warn(`${VERSION} No profile context provided to modal.`);
     }
     
     wireEventHandlers();
@@ -40,7 +41,7 @@ function hydrateForm(profile) {
     $w('#companyEmail').value = profile.companyEmail || "";
     $w('#companyPhone').value = profile.companyPhone || "";
 
-    console.log('[Company Settings: v2.0.7] Hydration complete for:', profile.companyName);
+    console.log(`${VERSION} Hydration complete for:`, profile.companyName);
 }
 
 function wireEventHandlers() {
@@ -80,7 +81,7 @@ async function handleSave() {
         }
 
     } catch (err) {
-        console.error(`[Company Settings: v2.0.7] Save failed:`, err);
+        console.error(`${VERSION} Save failed:`, err);
         showModalError(err.message, $w);
     } finally {
         toggleLoading(false);

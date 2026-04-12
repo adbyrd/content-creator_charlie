@@ -2,12 +2,13 @@
  * Modal: Project Settings
  * Path: /page_code/modals/project-settings.modal.js
  * Description: Multi-step wizard for project creation with state-based UI control.
- * Version: [Project Settings: v1.1.2] - Updated title validation (Ticket #2)
+ * Version: [ PROJECT SETTINGS : v.1.1.2 ]
  */
 
 import wixWindow from 'wix-window';
 import { createProject } from 'backend/services/project.web';
 
+const VERSION = '[ PROJECT SETTINGS : v.1.1.2 ]';
 let _isSaving = false;
 
 $w.onReady(function () {
@@ -34,13 +35,13 @@ function wireEventHandlers() {
 }
 
 function transitionToScope() {
-    console.log('[Project Settings: v1.1.2] Advancing to Project Scope...');
+    console.log(`${VERSION} Advancing to Project Scope...`);
 
     $w('#setUpNewProject').changeState("projectScope");
     $w('#btnNext').hide();
     $w('#btnSave').show();
     
-    console.log('[Project Settings: v1.1.2] Transitioned to Project Scope. Navigation hidden.');
+    console.log(`${VERSION} Transitioned to Project Scope. Navigation hidden.`);
 }
 
 /**
@@ -53,13 +54,13 @@ function validateSummaryState() {
 
     // Basic presence check
     if (!title || !desc) {
-        console.warn('[Project Settings: v1.1.2] Validation Failed: Project Name and Description are required.');
+        console.warn(`${VERSION} Validation Failed: Project Name and Description are required.`);
         return false;
     }
 
     // Ticket #2: Length Restriction (100 Characters)
     if (title.length > 100) {
-        console.warn('[Project Settings: v1.1.2] Validation Failed: Title exceeds 100 characters.');
+        console.warn(`${VERSION} Validation Failed: Title exceeds 100 characters.`);
         return false;
     }
 
@@ -67,7 +68,7 @@ function validateSummaryState() {
     // Allows spaces; remove \s if spaces are strictly prohibited.
     const alphanumericRegex = /^[a-z0-9 ]+$/i; 
     if (!alphanumericRegex.test(title)) {
-        console.warn('[Project Settings: v1.1.2] Validation Failed: Title must be alphanumeric only.');
+        console.warn(`${VERSION} Validation Failed: Title must be alphanumeric only.`);
         return false;
     }
 
@@ -88,7 +89,7 @@ function validateScopeState() {
     const isValid = fields.every(value => value && value.trim() !== "");
     
     if (!isValid) {
-        console.warn('[Project Settings: v1.1.2] Validation Failed: All Scope fields are required.');
+        console.warn(`${VERSION} Validation Failed: All Scope fields are required.`);
     }
     
     return isValid;
@@ -118,13 +119,13 @@ async function handleSave() {
         const response = await createProject(projectData);
 
         if (response.ok) {
-            console.log('[Project Settings: v1.1.2] Project created successfully.');
+            console.log(`${VERSION} Project created successfully.`);
             wixWindow.lightbox.close({ updated: true });
         } else {
             throw new Error(response.error || "Save failed");
         }
     } catch (err) {
-        console.error('[Project Settings: v1.1.2] Error during project save:', err);
+        console.error(`${VERSION} Error during project save:`, err);
         updateLoadingState(false);
     }
 }

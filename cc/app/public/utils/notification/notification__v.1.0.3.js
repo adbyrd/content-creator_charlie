@@ -1,7 +1,10 @@
 /**
  * Utility: Notifications
  * Path: /public/utils/notifications.js
+ * VERSION: [ NOTIFICATIONS : v.1.0.3 ]
  */
+
+const VERSION = '[ NOTIFICATIONS : v.1.0.3 ]';
 
 export function showToaster(message, type = 'success') {
     const $toaster = $w('#globalToaster');

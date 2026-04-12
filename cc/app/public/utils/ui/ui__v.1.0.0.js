@@ -1,7 +1,10 @@
 /**
  * Utility: Shared UI Logic
  * Path: /public/utils/ui.js
+ * VERSION: [ UI LOGIC : v.1.1.2 ]
  */
+
+const VERSION = '[ UI LOGIC : v.1.1.2 ]';
 
 export function showModalError(message, pageObject) {
     const $container = pageObject('#errorContainer');
@@ -12,7 +15,7 @@ export function showModalError(message, pageObject) {
         
         if (typeof $container.expand === 'function') {
             $container.expand();
-            console.log(`[cc-ui] Error displayed: ${message}`);
+            console.log(`${VERSION} Error displayed: ${message}`);
         }
 
         setTimeout(() => {
@@ -21,6 +24,6 @@ export function showModalError(message, pageObject) {
             }
         }, 5000);
     } else {
-        console.warn(`[cc-ui] Error elements missing in this modal scope.`);
+        console.warn(`${VERSION} Error elements missing in this modal scope.`);
     }
 }

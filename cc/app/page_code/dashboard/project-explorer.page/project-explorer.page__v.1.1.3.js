@@ -2,7 +2,7 @@
  * Page: Project Explorer
  * Path: /page_code/dashboard/projectExplorer.page.js
  * Description: UI controller for managing, viewing, and navigating to business projects.
- * Version: [Project Explorer: v1.1.3]
+ * Version: [ PROJECT EXPLORER : v.1.1.3 ]
  */
 
 import wixLocation from 'wix-location';
@@ -10,8 +10,10 @@ import wixWindow from 'wix-window';
 import { getMyProjects, getUserProjectCount } from 'backend/services/project.web';
 import { showToaster } from 'public/utils/notification';
 
+const VERSION = '[ PROJECT EXPLORER : v.1.1.3 ]';
+
 $w.onReady(async function () {
-    console.log('[Project Explorer: v1.1.3] Project Explorer Initialized');
+    console.log(`${VERSION} Project Explorer Initialized`);
     handleQueryStatus();
     await refreshProjectDashboard();
     $w('#btnProject').onClick(() => openProjectSettings());
@@ -41,7 +43,7 @@ async function refreshProjectDashboard() {
             renderProjectList(projectRes.data);
         }
     } catch (err) {
-        console.error('[Project Explorer: v1.1.3] Dashboard refresh failed:', err);
+        console.error(`${VERSION} Dashboard refresh failed:`, err);
     }
 }
 
