@@ -1,8 +1,7 @@
 /**
  * Page: Project Explorer
  * Path: /page_code/dashboard/projectExplorer.page.js
- * Description: UI controller for managing, viewing, and navigating to business projects.
- * Version: [ PROJECT EXPLORER : v.1.1.3 ]
+ * Version: [ PROJECT EXPLORER : v.1.2.0 ]
  */
 
 import wixLocation from 'wix-location';
@@ -10,10 +9,23 @@ import wixWindow from 'wix-window';
 import { getMyProjects, getUserProjectCount } from 'backend/services/project.web';
 import { showToaster } from 'public/utils/notification';
 
-const VERSION = '[ PROJECT EXPLORER : v.1.1.3 ]';
+const VERSION = '[ PROJECT EXPLORER : v.1.2.0 ]';
 
 $w.onReady(async function () {
     console.log(`${VERSION} Project Explorer Initialized`);
+
+    // FIXED: onItemReady MUST be registered synchronously inside $w.onReady
+    // before any async operations. Registering it inside an async callback
+    // after $w.onReady resolves means Wix will not fire it for the initial
+    // data binding, resulting in an empty repeater.
+    $w('#projectRepeater').onItemReady(($item, itemData) => {
+        $item('#txtProjectTitle').text = itemData.title || "Untitled Project";
+        $item('#txtProjectDescription').text = itemData.description || "No description provided.";
+        $item('#txtProjectTitle').onClick(() => {
+            wixLocation.to(`/project/${slugify(itemData.title)}`);
+        });
+    });
+
     handleQueryStatus();
     await refreshProjectDashboard();
     $w('#btnProject').onClick(() => openProjectSettings());
@@ -49,22 +61,14 @@ async function refreshProjectDashboard() {
 
 function renderProjectList(projects) {
     const $repeater = $w('#projectRepeater');
-    
+
     if (!projects || projects.length === 0) {
+        $repeater.data = [];
         $repeater.collapse();
-        $repeater.data = []; 
         return;
     }
 
-    $repeater.onItemReady(($item, itemData) => {
-        $item('#txtProjectTitle').text = itemData.title || "Untitled Project";
-        $item('#txtProjectDescription').text = itemData.description || "No description provided.";
-        $item('#txtProjectTitle').onClick(() => {
-            const slug = slugify(itemData.title);
-            wixLocation.to(`/project/${slug}`);
-        });
-    });
-
+    // onItemReady is already registered — only assign data and show the repeater
     $repeater.data = projects;
     $repeater.expand();
 }
@@ -74,25 +78,21 @@ async function openProjectSettings() {
         const result = await wixWindow.openLightbox("New Project");
 
         if (result && result.updated) {
-            console.log('[Project Explorer: v1.1.3] New project created. Refreshing UI.');
+            console.log(`${VERSION} New project created. Refreshing UI.`);
             await refreshProjectDashboard();
             showToaster("Project created successfully!", "success");
         }
     } catch (err) {
-        console.error('[Project Explorer: v1.1.3] Error opening project modal:', err);
+        console.error(`${VERSION} Error opening project modal:`, err);
     }
 }
 
-/**
- * Converts a string into a URL-friendly slug.
- * @param {string} text 
- */
 function slugify(text) {
     return text
         .toString()
         .toLowerCase()
         .trim()
-        .replace(/\s+/g, '-')     // Replace spaces with -
-        .replace(/[^\w-]+/g, '')  // Remove all non-word chars (except -)
-        .replace(/--+/g, '-');    // Replace multiple - with single -
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '')
+        .replace(/--+/g, '-');
 }

@@ -12,6 +12,7 @@ const VERSION = '[ PROJECT SETTINGS : v.1.1.2 ]';
 let _isSaving = false;
 
 $w.onReady(function () {
+    console.log(`${VERSION} Project Settings Modal Initialized`);
     initModal();
     wireEventHandlers();
 });

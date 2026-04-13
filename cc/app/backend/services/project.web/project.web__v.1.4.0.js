@@ -1,15 +1,14 @@
 /**
  * Service: Project Service
  * Path: /backend/services/project.web.js
- * Description: Backend logic for managing user projects with strict ownership filtering and elevated DB permissions.
- * Version: [ PROJECT SERVICE : v.1.4.0 ]
+ * Version: [ PROJECT SERVICE : v.1.5.0 ]
  */
 
 import { Permissions, webMethod } from 'wix-web-module';
 import wixData from 'wix-data';
 import { currentMember } from 'wix-members-backend';
 
-const VERSION = '[ PROJECT SERVICE : v.1.4.0 ]';
+const VERSION = '[ PROJECT SERVICE : v.1.5.0 ]';
 const COLLECTION_PROJECTS = "projects";
 const DB_OPTIONS = { suppressAuth: true };
 
@@ -36,9 +35,9 @@ export const createProject = webMethod(Permissions.Anyone, async (projectData) =
             description: projectData.description,
             goal: projectData.goal,
             offer: projectData.offer,
-            target_audience: projectData.target_audience, 
+            target_audience: projectData.target_audience,
             misconception: projectData.misconception,
-            owner: memberId 
+            _owner: memberId  // FIXED: use _owner to match Wix system field convention
         };
 
         const result = await wixData.insert(COLLECTION_PROJECTS, payload, DB_OPTIONS);
@@ -56,7 +55,7 @@ export const getUserProjectCount = webMethod(Permissions.Anyone, async () => {
         if (!memberId) return { ok: true, count: 0 };
 
         const count = await wixData.query(COLLECTION_PROJECTS)
-            .eq("owner", memberId)
+            .eq("_owner", memberId)  // FIXED: query against _owner
             .count(DB_OPTIONS);
 
         console.log(`${VERSION} Project count retrieved for ${memberId}: ${count}`);
@@ -73,7 +72,7 @@ export const getMyProjects = webMethod(Permissions.Anyone, async () => {
         if (!memberId) return { ok: true, data: [] };
 
         const results = await wixData.query(COLLECTION_PROJECTS)
-            .eq("owner", memberId)
+            .eq("_owner", memberId)  // FIXED: query against _owner
             .descending("_createdDate")
             .find(DB_OPTIONS);
 

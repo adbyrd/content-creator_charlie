@@ -1,16 +1,17 @@
 /**
  * Backend Service: Profile & Identity Management
  * Path: /backend/services/profile.web.js
- * Version: [ PROFILE SERVICE : v.2.2.0 ]
+ * Version: [ PROFILE SERVICE : v.2.4.0 ]
  */
 
 import { webMethod, Permissions } from 'wix-web-module';
 import wixData from 'wix-data';
 import { currentMember } from 'wix-members-backend';
 
-const PROFILES_COLLECTION = 'profiles'; 
+const PROFILES_COLLECTION = 'profiles';
+const MEMBERS_COLLECTION = 'Members/FullData'; // Native Wix members store
 const MAX_RETRIES = 3;
-const VERSION = "[ PROFILE SERVICE : v.2.2.0 ]";
+const VERSION = "[ PROFILE SERVICE : v.2.4.0 ]";
 
 async function executeQueryWithRetry(query, options = { suppressAuth: true }, attempts = 1) {
     try {
@@ -33,13 +34,21 @@ export const checkMemberExists = webMethod(Permissions.Anyone, async (email) => 
             return { ok: false, error: "EMAIL_REQUIRED" };
         }
 
-        const query = wixData.query(PROFILES_COLLECTION).eq("companyEmail", email);
-        const { items } = await executeQueryWithRetry(query);
+        const normalizedEmail = email.trim().toLowerCase();
+
+        // Query native Wix members store directly via wixData.
+        // 'loginEmail' is the canonical email field on Members/FullData.
+        // suppressAuth is required — caller is unauthenticated at this point.
+        const query = wixData.query(MEMBERS_COLLECTION)
+            .eq("loginEmail", normalizedEmail);
+
+        const { items } = await executeQueryWithRetry(query, { suppressAuth: true });
 
         const exists = items.length > 0;
-        console.log(`${VERSION} Identity check for ${email}: ${exists ? 'FOUND' : 'NOT_FOUND'}`);
+        console.log(`${VERSION} Members/FullData identity check for ${normalizedEmail}: ${exists ? 'FOUND' : 'NOT_FOUND'}`);
 
         return { ok: true, exists };
+
     } catch (err) {
         console.error(`${VERSION} Identity check failed:`, err);
         return { ok: false, error: err.message };
@@ -73,7 +82,6 @@ export const updateProfile = webMethod(Permissions.Anyone, async (payload) => {
             return { ok: false, error: "AUTH_REQUIRED" };
         }
 
-        // 1. Fetch current record
         const query = wixData.query(PROFILES_COLLECTION).eq('_owner', memberId);
         const currentRes = await executeQueryWithRetry(query);
 
@@ -83,17 +91,16 @@ export const updateProfile = webMethod(Permissions.Anyone, async (payload) => {
         }
 
         const original = currentRes.items[0];
-        
-        // 2. Defensive Merge (Only allow specific fields from payload.profile)
+
         const updateData = {
             ...original,
             ...(payload.profile || {}),
-            _id: original._id, // Lock ID
-            _owner: memberId   // Force ownership
+            _id: original._id,
+            _owner: memberId
         };
 
         const result = await wixData.update(PROFILES_COLLECTION, updateData, { suppressAuth: true });
-        
+
         console.log(`${VERSION} Profile updated for owner: ${memberId}`);
         return { ok: true, data: result };
 
