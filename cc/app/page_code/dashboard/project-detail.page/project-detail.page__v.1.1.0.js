@@ -1,7 +1,7 @@
 /**
  * Page: Project Detail (Dynamic)
  * Path: /projects/{_id}
- * Version: [ PROJECT DETAIL : v.1.2.0 ]
+ * Version: [ PROJECT DETAIL : v.1.1.0 ]
  */
 
 import wixLocation from 'wix-location';
@@ -11,23 +11,16 @@ import { validateProjectForGeneration } from 'public/utils/validation';
 import { safeDisable, safeShow, safeHide } from 'public/utils/ui';
 import { showToaster } from 'public/utils/notification';
 
-const VERSION = '[ PROJECT DETAIL : v.1.2.0 ]';
-
-/**
- * Module-level project state.
- * Populated on load and re-synced after every dataset refresh so that
- * repeat edit clicks always receive the latest persisted data.
- */
-let _currentProject = null;
+const VERSION = '[ PROJECT DETAIL : v.1.1.0 ]';
 
 $w.onReady(function () {
     console.log(`${VERSION} Project Detail Page Initializing...`);
 
-    _currentProject = $w('#dynamicDataset').getCurrentItem();
+    const project = $w('#dynamicDataset').getCurrentItem();
 
-    setupPageUI(_currentProject);
-    wireEditButton();
-    wireGenerateButton();
+    setupPageUI(project);
+    wireEditButton(project);
+    wireGenerateButton(project);
 });
 
 // ─── PAGE SETUP ───────────────────────────────────────────────────────────────
@@ -35,7 +28,9 @@ $w.onReady(function () {
 function setupPageUI(data) {
     if (!data) return;
 
-    $w('#txtBreadcrumb').text = `Projects / ${data.title}`;
+    if ($w('#txtBreadcrumb').length > 0) {
+        $w('#txtBreadcrumb').text = `Projects / ${data.title}`;
+    }
 
     $w('#btnBack').onClick(() => {
         wixLocation.to("/projects");
@@ -46,34 +41,28 @@ function setupPageUI(data) {
 
 /**
  * Wires the Edit button to open the Project Settings modal pre-populated
- * with the latest project data.
+ * with the current project's data.
  *
- * After a successful save:
- *   1. The dataset is refreshed (updates all bound UI elements).
- *   2. _currentProject is re-read from the dataset so the next edit
- *      click receives current data, not a stale snapshot.
- *   3. The toaster confirms the update to the user.
+ * On successful save the dynamic dataset is refreshed so all bound UI
+ * elements update automatically, and a toaster confirms the action.
+ *
+ * @param {object} project - The current dynamic dataset item.
  */
-function wireEditButton() {
+function wireEditButton(project) {
     $w('#btnEditProject').onClick(async () => {
-        if (!_currentProject) {
+        if (!project) {
             console.warn(`${VERSION} Edit triggered but no project data available.`);
             return;
         }
 
         try {
-            console.log(`${VERSION} Opening edit modal for project: ${_currentProject._id}`);
+            console.log(`${VERSION} Opening edit modal for project: ${project._id}`);
 
-            const result = await wixWindow.openLightbox('Project', { project: _currentProject });
+            const result = await wixWindow.openLightbox('Project', { project });
 
             if (result && result.updated) {
                 console.log(`${VERSION} Project edit confirmed. Refreshing dataset...`);
                 await $w('#dynamicDataset').refresh();
-
-                // Re-sync module state from the freshly refreshed dataset
-                _currentProject = $w('#dynamicDataset').getCurrentItem();
-                console.log(`${VERSION} _currentProject synced: "${_currentProject?.title}"`);
-
                 showToaster("Project updated successfully.", "success");
             }
         } catch (err) {
@@ -86,15 +75,14 @@ function wireEditButton() {
 
 /**
  * Triggers the n8n storyboard generation pipeline for the current project.
- * Reads from _currentProject at click-time to ensure it always operates
- * on the latest project state.
- *
  * Guards against invalid project state before dispatching the backend call.
+ *
+ * @param {object} project - The current dynamic dataset item.
  */
-function wireGenerateButton() {
+function wireGenerateButton(project) {
     $w('#btnGenerateStoryboard').onClick(async () => {
         // 1. Client-side validation
-        const validation = validateProjectForGeneration(_currentProject);
+        const validation = validateProjectForGeneration(project);
         if (!validation.isValid) {
             showError(validation.message);
             return;
@@ -104,7 +92,7 @@ function wireGenerateButton() {
         toggleLoadingState(true);
 
         // 3. Dispatch backend service
-        const result = await generateStoryboard(_currentProject._id);
+        const result = await generateStoryboard(project._id);
 
         if (result.ok) {
             // UI remains in loading state while n8n processes & writes back to DB.

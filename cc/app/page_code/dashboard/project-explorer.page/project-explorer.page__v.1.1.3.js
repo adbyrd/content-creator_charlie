@@ -75,7 +75,7 @@ function renderProjectList(projects) {
 
 async function openProjectSettings() {
     try {
-        const result = await wixWindow.openLightbox("New Project");
+        const result = await wixWindow.openLightbox("Project");
 
         if (result && result.updated) {
             console.log(`${VERSION} New project created. Refreshing UI.`);

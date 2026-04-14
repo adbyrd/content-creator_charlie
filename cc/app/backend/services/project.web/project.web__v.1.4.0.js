@@ -1,14 +1,14 @@
 /**
  * Service: Project Service
  * Path: /backend/services/project.web.js
- * Version: [ PROJECT SERVICE : v.1.5.0 ]
+ * Version: [ PROJECT SERVICE : v.1.4.0 ]
  */
 
 import { Permissions, webMethod } from 'wix-web-module';
 import wixData from 'wix-data';
 import { currentMember } from 'wix-members-backend';
 
-const VERSION = '[ PROJECT SERVICE : v.1.5.0 ]';
+const VERSION = '[ PROJECT SERVICE : v.1.4.0 ]';
 const COLLECTION_PROJECTS = "projects";
 const DB_OPTIONS = { suppressAuth: true };
 
