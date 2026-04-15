@@ -235,7 +235,7 @@ export const getUserProjectCount = webMethod(Permissions.Anyone, async () => {
         if (!memberId) return { ok: true, count: 0 };
 
         const count = await wixData.query(COLLECTION_PROJECTS)
-            .eq('owner', memberId)
+            .eq('_owner', memberId)
             .count(DB_OPTIONS);
 
         console.log(`${VERSION} getUserProjectCount: ${count} projects for member: ${memberId}`);
@@ -255,7 +255,7 @@ export const getMyProjects = webMethod(Permissions.Anyone, async () => {
         if (!memberId) return { ok: true, data: [] };
 
         const results = await wixData.query(COLLECTION_PROJECTS)
-            .eq('owner', memberId)
+            .eq('_owner', memberId)
             .descending('_createdDate')
             .find(DB_OPTIONS);
 
